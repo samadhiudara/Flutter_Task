@@ -30,8 +30,26 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    fetchProducts();
   }
+
+  Future<void> fetchProducts() async {
+    final response = await http.get(Uri.parse('https://dummyjson.com/products'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final productsData = jsonData['products']; // Access the 'products' key
+      if (productsData is List) {
+        setState(() {
+          products = productsData.map((json) => Product.fromJson(json)).toList();
+        });
+      } else {
+        throw Exception('Invalid data format: $productsData');
+      }
+    } else {
+      throw Exception('Failed to load products: ${response.statusCode}');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
