@@ -54,35 +54,74 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Product App'),
       ),
-      body: products.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final product = products[index];
-          return ListTile(
-            leading: Container(
-              width: 100, // Fixed width
-              height: 100, // Fixed height
-              child: Image.network(
-                product.thumbnail,
-                fit: BoxFit.cover, // Adjust this according to your needs
-              ),
+      backgroundColor: Colors.white, // Set background color here
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Welcome to the Product App',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            title: Text(product.title),
-            subtitle: Text('\$${product.price} - ${product.brand}'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailPage(product: product),
-                ),
-              );
-            },
-          );
-        },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Browse our collection of products',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+          SizedBox(height: 20.0),
+          Expanded(
+            child: products.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return Card(
+                  margin: EdgeInsets.all(8.0),
+                  elevation: 4.0,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(8.0),
+                    leading: Container(
+                      width: 100, // Fixed width
+                      height: 100, // Fixed height
+                      child: Image.network(
+                        product.thumbnail,
+                        fit: BoxFit.cover, // Adjust this according to your needs
+                      ),
+                    ),
+                    title: Text(
+                      product.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 4.0),
+                        Text('\$${product.price}', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(product.brand),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(product: product),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -99,55 +138,76 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Detail Page'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              product.title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.grey[200], // Set background color to gray
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Product Details', // Add topic
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Price: \$${product.price}',
-              style: TextStyle(fontSize: 18),
+            SizedBox(height: 16.0),
+            Card(
+              elevation: 4.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.title,
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      'Price: \$${product.price}',
+                      style: TextStyle(fontSize: 18, color: Colors.green),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      'Rating: ${product.rating}',
+                      style: TextStyle(fontSize: 18, color: Colors.orange),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      'Description:',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 4.0),
+                    Text(
+                      product.description,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Rating: ${product.rating}',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Description: ${product.description}',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
+            SizedBox(height: 16.0),
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              itemCount: product.images.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                    product.images[index],
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
+              child: Row(
+                children: product.images
+                    .map(
+                      (image) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(
+                      image,
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                );
-              },
+                )
+                    .toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
