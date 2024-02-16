@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Product App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white, // Background color for scaffold
       ),
       home: HomePage(),
     );
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Product App'),
       ),
-      backgroundColor: Colors.white, // Set background color here
+      backgroundColor: Colors.amberAccent, // Set background color here
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,14 +66,14 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Welcome to the Product App',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.indigo),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Browse our collection of products',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.deepPurpleAccent),
             ),
           ),
           SizedBox(height: 20.0),
@@ -98,14 +99,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     title: Text(
                       product.title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 4.0),
-                        Text('\$${product.price}', style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(product.brand),
+                        Text('\$${product.price}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                        Text(product.brand, style: TextStyle(color: Colors.grey)),
                       ],
                     ),
                     onTap: () {
@@ -138,7 +139,7 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Detail Page'),
       ),
-      backgroundColor: Colors.grey[200], // Set background color to gray
+      backgroundColor: Colors.amberAccent[200], // Set background color to gray
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -146,11 +147,12 @@ class DetailPage extends StatelessWidget {
           children: [
             Text(
               'Product Details', // Add topic
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blue),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.indigo),
             ),
             SizedBox(height: 16.0),
             Card(
               elevation: 4.0,
+              color: Colors.white70,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
@@ -161,7 +163,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                     Text(
                       product.title,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
                     ),
                     SizedBox(height: 8.0),
                     Text(
@@ -176,12 +178,12 @@ class DetailPage extends StatelessWidget {
                     SizedBox(height: 8.0),
                     Text(
                       'Description:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo),
                     ),
                     SizedBox(height: 4.0),
                     Text(
                       product.description,
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: Colors.black87),
                     ),
                   ],
                 ),
