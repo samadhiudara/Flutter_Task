@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +63,14 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           final product = products[index];
           return ListTile(
-            leading: Image.network(product.thumbnail),
+            leading: Container(
+              width: 100, // Fixed width
+              height: 100, // Fixed height
+              child: Image.network(
+                product.thumbnail,
+                fit: BoxFit.cover, // Adjust this according to your needs
+              ),
+            ),
             title: Text(product.title),
             subtitle: Text('\$${product.price} - ${product.brand}'),
             onTap: () {
