@@ -92,6 +92,10 @@ class _HomePageState extends State<HomePage> {
                     leading: Container(
                       width: 100, // Fixed width
                       height: 100, // Fixed height
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.grey[200],
+                      ),
                       child: Image.network(
                         product.thumbnail,
                         fit: BoxFit.cover, // Adjust this according to your needs
@@ -99,14 +103,20 @@ class _HomePageState extends State<HomePage> {
                     ),
                     title: Text(
                       product.title,
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 16.0),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 4.0),
-                        Text('\$${product.price}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
-                        Text(product.brand, style: TextStyle(color: Colors.grey)),
+                        Text(
+                          '\$${product.price}',
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 14.0),
+                        ),
+                        Text(
+                          product.brand,
+                          style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                        ),
                       ],
                     ),
                     onTap: () {
@@ -165,25 +175,41 @@ class DetailPage extends StatelessWidget {
                       product.title,
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
                     ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Price: \$${product.price}',
-                      style: TextStyle(fontSize: 18, color: Colors.green),
+                    SizedBox(height: 12.0),
+                    Row(
+                      children: [
+                        Text(
+                          'Price: ',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurpleAccent),
+                        ),
+                        Text(
+                          '\$${product.price}',
+                          style: TextStyle(fontSize: 18, color: Colors.green),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 8.0),
-                    Text(
-                      'Rating: ${product.rating}',
-                      style: TextStyle(fontSize: 18, color: Colors.orange),
+                    Row(
+                      children: [
+                        Text(
+                          'Rating: ',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurpleAccent),
+                        ),
+                        Text(
+                          '${product.rating}',
+                          style: TextStyle(fontSize: 18, color: Colors.orange),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 8.0),
+                    SizedBox(height: 12.0),
                     Text(
                       'Description:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurpleAccent),
                     ),
                     SizedBox(height: 4.0),
                     Text(
                       product.description,
-                      style: TextStyle(fontSize: 16, color: Colors.black87),
+                      style: TextStyle(fontSize: 16, color: Colors.blueGrey),
                     ),
                   ],
                 ),
@@ -246,3 +272,4 @@ class Product {
     );
   }
 }
+
